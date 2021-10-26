@@ -1,5 +1,14 @@
-class Board
+require_relative "./Pieces/rook.rb"
+require_relative "./Pieces/queen.rb"
+require_relative "./Pieces/bishop.rb"
+require_relative "./Pieces/knight.rb"
+require_relative "./Pieces/king.rb"
+require_relative "./Pieces/pawn.rb"
+require_relative "./Pieces/nullpiece.rb"
+require_relative "./Pieces/piece.rb"
 
+class Board
+    attr_reader :rows, :null_piece
     def initialize
         @rows = Array.new(8) {Array.new(8)}
         @null_piece = NullPiece.new
@@ -47,7 +56,21 @@ class Board
         raise "Empty start Position" if self[start_pos] == @null_piece || self[start_pos].color != color
         raise "Illegal Move" if !self[start_pos].valid_moves.include?(end_pos) || self[end_pos].color == color 
 
-        self[end_pos] = self[start_pos]
-        self[start_pos] = @null_piece
+        self.add_piece(self[start_pos], end_pos)
+        self.add_piece(@null_piece, start_pos)
+    end
+
+    def add_piece(piece, pos)
+        if valid_pos?(pos)
+            self[pos] = piece
+        end
+    end
+
+    def valid_pos?(pos)
+        x, y = pos
+        x.between?(0,8) && y.between?(0,8)
     end
 end
+
+b = Board.new
+p b[[0,0]].moves
