@@ -6,7 +6,7 @@ class Bishop < Piece
 
 
     def symbol
-        :Bishop
+        :B
     end
 
     private

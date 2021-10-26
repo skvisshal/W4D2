@@ -5,7 +5,7 @@ class Queen < Piece
     include SLIDEABLE
 
     def symbol
-        :Rook
+        :Q
     end
 
     private

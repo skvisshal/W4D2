@@ -5,7 +5,7 @@ class Rook < Piece
     include SLIDEABLE
 
     def symbol
-        :Rook
+        :R
     end
 
     private

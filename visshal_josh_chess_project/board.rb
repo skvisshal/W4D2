@@ -31,8 +31,8 @@ class Board
                     @rows[i][j] = Bishop.new(:w, self, [i,j]) if j == 2 || j == 5
                     @rows[i][j] = Queen.new(:w, self, [i,j]) if j == 3
                     @rows[i][j] = King.new(:w, self, [i,j]) if j == 4
-                elsif i == 1
-                    @rows[i][j] = Pawn.new(:b, self, [i,j])
+                #elsif i == 1
+                    #@rows[i][j] = Pawn.new(:b, self, [i,j])
                 elsif i == 6
                     @rows[i][j] = Pawn.new(:w, self, [i,j])
                 else
@@ -68,9 +68,20 @@ class Board
 
     def valid_pos?(pos)
         x, y = pos
-        x.between?(0,8) && y.between?(0,8)
+        x.between?(0,7) && y.between?(0,7)
+    end
+
+    def print_board
+        @rows.each do |row|
+            row.each do |piece|
+                print "#{piece.symbol} "
+            end
+            print "\n"
+        end
     end
 end
 
 b = Board.new
-p b[[0,0]].moves
+b.print_board
+#b.move_piece(:b, [1,0], [2,0])
+p b[[0,2]].moves

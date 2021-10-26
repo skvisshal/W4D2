@@ -6,4 +6,7 @@ class NullPiece < Piece
     def initialize 
     end
 
+    def symbol
+        :_
+    end
 end
