@@ -6,7 +6,14 @@ class NullPiece < Piece
     def initialize 
     end
 
+    
+    # def valid_moves
+    #     arr = moves
+    #     arr.reject {|pos| move_into_check?(pos)}
+    # end
+
     def moves
+        []
     end
 
     def symbol

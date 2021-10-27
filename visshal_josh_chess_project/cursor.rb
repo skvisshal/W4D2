@@ -42,7 +42,7 @@ class Cursor
 
   def get_input
     key = KEYMAP[read_char]
-    handle_key(key)
+    return handle_key(key)
   end
 
   private
@@ -93,7 +93,9 @@ class Cursor
       update_pos(MOVES[key])
       return nil
     when :ctrl_c
-      exit
+      return :exit
+    when :return
+      return true
     end
   end
 

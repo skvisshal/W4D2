@@ -18,17 +18,9 @@ class Display
             system("clear")
             @board.print_board(@cursor.cursor_pos)
             answer = @cursor.get_input
-            case answer
-            when :exit
-                exit = true
-            when :return
-                exit = true
-            end
+            exit = true if answer    
         end
-        @cursor.cursor_pos
+        @cursor.cursor_pos.dup
     end
 
 end
-
-d = Display.new(Board.new)
-d.render

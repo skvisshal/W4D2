@@ -6,21 +6,27 @@ class Pawn < Piece
         :P
     end
 
+    # def valid_moves
+    #     arr = moves
+    #     arr.reject {|pos| move_into_check?(pos)}
+    # end
+
     def moves
         forward_steps + side_attacks
     end
 
     private
     def at_start_row?
-        (@color == :b && @pos[0] == 1) || (@color == :w && @pos[0] == 6)
+        (@color == :black && @pos[0] == 1) || (@color == :white && @pos[0] == 6)
     end
 
     def forward_dir
-        return -1 if @color == :w
+        return -1 if @color == :white
         1
     end
 
     def forward_steps
+        # debugger
         poss_moves = []
         x,y = @pos
         if at_start_row?
@@ -37,9 +43,10 @@ class Pawn < Piece
         x,y = @pos
         poss_moves << [x+forward_dir,y+forward_dir]
         poss_moves << [x+forward_dir,y-forward_dir]
-        poss_moves.select do |pos|
-            @board.valid_pos?(pos) && @board[pos].color == (@color==:w ? :b : :w)
+        x = poss_moves.select do |pos|
+            @board.valid_pos?(pos) && @board[pos].color != @color
         end
+        return x
     end
 
 end
