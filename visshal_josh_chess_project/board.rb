@@ -77,9 +77,9 @@ class Board
     end
 
     def print_board(cursor_pos)
-        @rows.each do |row|
-            row.each do |piece|
-                if piece.pos == cursor_pos
+        @rows.each.with_index do |row, i|
+            row.each.with_index do |piece, x|
+                if [i, x] == cursor_pos
                     print "#{piece.symbol} ".colorize(:red)
                 else
                     print "#{piece.symbol} "

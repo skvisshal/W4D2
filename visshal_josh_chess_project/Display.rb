@@ -8,6 +8,8 @@ class Display
     def initialize (board)
         @board = board
         @cursor = Cursor.new([0,0], @board)
+        @start = []
+        @end = []
     end
 
     def render
@@ -15,11 +17,15 @@ class Display
         until exit
             system("clear")
             @board.print_board(@cursor.cursor_pos)
-            @cursor.get_input
-
-
+            answer = @cursor.get_input
+            case answer
+            when :exit
+                exit = true
+            when :return
+                exit = true
+            end
         end
-
+        @cursor.cursor_pos
     end
 
 end
