@@ -6,12 +6,13 @@ require_relative "./Pieces/king.rb"
 require_relative "./Pieces/pawn.rb"
 require_relative "./Pieces/nullpiece.rb"
 require_relative "./Pieces/piece.rb"
+require "colorize"
 
 class Board
     attr_reader :rows, :null_piece
     def initialize
         @rows = Array.new(8) {Array.new(8)}
-        @null_piece = NullPiece.new
+        @null_piece = NullPiece.instance
         self.populate
     end
 
@@ -31,8 +32,8 @@ class Board
                     @rows[i][j] = Bishop.new(:w, self, [i,j]) if j == 2 || j == 5
                     @rows[i][j] = Queen.new(:w, self, [i,j]) if j == 3
                     @rows[i][j] = King.new(:w, self, [i,j]) if j == 4
-                #elsif i == 1
-                    #@rows[i][j] = Pawn.new(:b, self, [i,j])
+                elsif i == 1
+                    @rows[i][j] = Pawn.new(:b, self, [i,j])
                 elsif i == 6
                     @rows[i][j] = Pawn.new(:w, self, [i,j])
                 else
@@ -50,6 +51,10 @@ class Board
     def []=(pos, val)
         x,y = pos
         @rows[x][y] = val
+    end
+
+    def length
+        @grid.length
     end
 
     def move_piece(color, start_pos, end_pos)
@@ -71,10 +76,14 @@ class Board
         x.between?(0,7) && y.between?(0,7)
     end
 
-    def print_board
+    def print_board(cursor_pos)
         @rows.each do |row|
             row.each do |piece|
-                print "#{piece.symbol} "
+                if piece.pos == cursor_pos
+                    print "#{piece.symbol} ".colorize(:red)
+                else
+                    print "#{piece.symbol} "
+                end
             end
             print "\n"
         end
@@ -82,6 +91,6 @@ class Board
 end
 
 b = Board.new
-b.print_board
+# b.print_board
 #b.move_piece(:b, [1,0], [2,0])
-p b[[0,2]].moves
+# p b[[0,2]].moves
